@@ -17,32 +17,28 @@ class Utils
     public static function getArrayOfCountries($xmlCountry, $selectedRegion)
     {
 
-        $arrayOfCountries = self::xmlToArray($xmlCountry);
 
-        $arrayOfCountries = self::sortCountries($arrayOfCountries);
+        $arrayOfCountries = self::sortCountries($xmlCountry);
 
 
         if ($selectedRegion) {
             $arrayOfCountries = array_filter($arrayOfCountries, function ($var) use ($selectedRegion) {
-                return ($var['@attributes']['zone'] == $selectedRegion || $selectedRegion == 'all');
+                return ($var['zone'] == $selectedRegion || $selectedRegion == 'all');
             });
         }
 
         return $arrayOfCountries;
     }
 
-    private static function xmlToArray($xmlCountry)
-    {
-        return json_decode(json_encode($xmlCountry), true);
-    }
 
     private static function sortCountries($arrayOfCountries)
     {
+
         usort($arrayOfCountries, function ($a, $b): int {
-            if ($a['@attributes']['zone'] === $b['@attributes']['zone']) {
-                return $a['name'][0] <=> $b['name'][0];
+            if ((string)$a['zone'] === (string)$b['zone']) {
+                return (string)$a->name <=> (string)$b->name;
             }
-            return $a['@attributes']['zone'] <=> $b['@attributes']['zone'];
+            return (string)$a['zone'] <=> (string)$b['zone'];
         });
 
         return $arrayOfCountries;

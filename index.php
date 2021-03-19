@@ -31,7 +31,6 @@ $arrayOfCountries = Utils::getArrayOfCountries($xmlCountry, $selectedRegion);
 
 $countriesWithEuroArrayList = Utils::getCountriesWithEuro($xmlCountriesWithEuro);
 
-
 ?>
 
 <?php
@@ -68,19 +67,21 @@ include('header.php');
 
         <?php foreach ($arrayOfCountries as $country) { ?>
             <div class="divTableRow">
-                <div class="divTableCell"><?= $country['@attributes']['zone'] ?></div>
-                <div class="divTableCell"><?= $country['name'][0] ?> (<?= htmlspecialchars($country['name']['@attributes']['native']) ?>
+                <div class="divTableCell"><?= $country['zone'] ?></div>
+                <div class="divTableCell"><?= $country->name ?> (<?php
+
+                    echo $country->name['native'] ?>
                     )
                 </div>
-                <div class="divTableCell"><?= $country['language'][0] ?>
-                    (<?= $country['language']['@attributes']['native'] ?>)
+                <div class="divTableCell"><?= $country->language ?>
+                    (<?= $country->language['native'] ?>)
                 </div>
-                <div class="divTableCell"><?= $country['currency'][0] ?>
-                    (<?= $country['currency']['@attributes']['code'] ?>)
+                <div class="divTableCell"><?= $country->currency ?>
+                    (<?= $country->currency['code'] ?>)
                 </div>
-                <div class="divTableCell"><?php preg_match(LATITUDE_PATTERN, $country['map_url'], $match);
+                <div class="divTableCell"><?php preg_match(LATITUDE_PATTERN, $country->map_url, $match);
                     echo $match[1]; ?></div>
-                <div class="divTableCell"><?php preg_match(LONGITUDE_PATTERN, $country['map_url'], $match);
+                <div class="divTableCell"><?php preg_match(LONGITUDE_PATTERN, $country->map_url, $match);
                     echo $match[1]; ?></div>
             </div>
         <?php } ?>
