@@ -1,5 +1,5 @@
 <?php
-include('utils.php');
+include('Utils.php');
 
 const LATITUDE_PATTERN = '/@(\-?[0-9]+\.[0-9]+)/';
 const LONGITUDE_PATTERN = '/,(\-?[0-9]+\.[0-9]+)/';
@@ -69,7 +69,7 @@ include('header.php');
         <?php foreach ($arrayOfCountries as $country) { ?>
             <div class="divTableRow">
                 <div class="divTableCell"><?= $country['@attributes']['zone'] ?></div>
-                <div class="divTableCell"><?= $country['name'][0] ?> (<?= $country['name']['@attributes']['native'] ?>
+                <div class="divTableCell"><?= $country['name'][0] ?> (<?= htmlspecialchars($country['name']['@attributes']['native']) ?>
                     )
                 </div>
                 <div class="divTableCell"><?= $country['language'][0] ?>
